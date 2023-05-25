@@ -26,7 +26,7 @@ class ListsController < ApplicationController
     respond_to do |format|
       if @list.save
         then
-        format.html { redirect_to list_url(@list), notice: "contact was added to directory." }
+        format.html { redirect_to list_url(@list), notice: "contact was added to directory" }
         format.json { render :show, status: :created, location: @list }
 
       else
