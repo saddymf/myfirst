@@ -3,12 +3,19 @@ class ListsController < ApplicationController
 
   # GET /lists or /lists.json
   def index
-    @lists = List.all
+    @lists = List.order(number: :asc)
+    @lists_count = List.count
+    @number_count = List.where.not(number: nil).count
+    @lowest_number = List.minimum(:number)
+    @maximum_number = List.maximum(:number)
+    
   end
 
   def filtered_index
     @lists = List.where("number < ?", 30)
-    render :index
+    @lists_count = List.count
+    @number_count = List.where("number < ?", 30).count
+    render :filtered_index
   end
 
   # GET /lists/1 or /lists/1.json

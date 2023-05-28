@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   resources :lists do
-  collection do
-    get :filtered_index
+    collection do
+      get :filtered_index
+    end
   end
-end
+  
   get 'lists/new'
  # get 'home#index'
   root 'home#dirlist'
