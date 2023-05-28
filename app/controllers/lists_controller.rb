@@ -1,10 +1,11 @@
 class ListsController < ApplicationController
   before_action :set_list, only: %i[ show edit update destroy ]
+  
+  
 
   # GET /lists or /lists.json
   def index
     @lists = List.order(number: :asc)
-    @lists_count = List.count
     @number_count = List.where.not(number: nil).count
     @lowest_number = List.minimum(:number)
     @maximum_number = List.maximum(:number)
@@ -13,7 +14,6 @@ class ListsController < ApplicationController
 
   def filtered_index
     @lists = List.where("number < ?", 30)
-    @lists_count = List.count
     @number_count = List.where("number < ?", 30).count
     render :filtered_index
   end
@@ -83,7 +83,9 @@ class ListsController < ApplicationController
     def list_params
       params.require(:list).permit(:name, :number, :email)
     end
-end
+
+    
+  end
 
 
 
