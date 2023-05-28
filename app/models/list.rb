@@ -4,7 +4,7 @@ class List < ApplicationRecord
 
     validates :email, presence: true, uniqueness: true, 
                     format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.com\z/i,  
-                    message: "%{value} is not valid email character."  }
+                    message: "please enter valid email"  }
           
     validates :number, presence: true, #length: {minimum:1,maximum:2}, 
                
@@ -12,7 +12,7 @@ class List < ApplicationRecord
               greater_than_or_equal_to: 18,
               less_than_or_equal_to: 60, 
       
-              message: "%{value} is not a valid number." }
+              message: "should be between 18 and 60" }
 end
 
 

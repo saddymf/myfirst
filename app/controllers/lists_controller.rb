@@ -6,6 +6,11 @@ class ListsController < ApplicationController
     @lists = List.all
   end
 
+  def filtered_index
+    @lists = List.where("number < ?", 30)
+    render :index
+  end
+
   # GET /lists/1 or /lists/1.json
   def show
   end
@@ -30,7 +35,7 @@ class ListsController < ApplicationController
         format.json { render :show, status: :created, location: @list }
 
       else
-        format.html { render :new, status: :unprocessable_entity, notice:"please enter valid info." }
+        format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @list.errors, status: :unprocessable_entity }
       end
     end
@@ -59,7 +64,7 @@ class ListsController < ApplicationController
       format.json { head :no_content }
 
   end
-
+    
 
   private
     # Use callbacks to share common setup or constraints between actions.
