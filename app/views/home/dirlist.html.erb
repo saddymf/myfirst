@@ -3,17 +3,46 @@
 
 <h1>welcome to our directory</h1>
 
+<ul class="nav nav-tabs">
+  <% if user_signed_in? %>
+    <li class="nav-item">
+        <%= link_to 'ADD NEW', new_list_path, class:"nav-link active" %>
+    </li>
 
+    <li class="nav-item">
+        <%= link_to 'SEE DIRECTORY', lists_path , class:"nav-link active" %>
+    </li>
+
+    <li class="nav-item">
+        <%= link_to 'SEE DIRECTORY BELOW 30',  filtered_index_lists_path, class:"nav-link active" %>
+    </li>
+    
+    <li class="nav-item">
+        <%= link_to  "EDIT PROFILE", edit_user_registration_path, class:"nav-link active" %>
+    </li>
+    
+    <li class="nav-item">
+        <%= button_to  "SIGN OUT", destroy_user_session_path, :method => :delete,class:"nav-link active" %>
+    </li>
+    
     
 
-<ul class="nav nav-tabs">
-<li class="nav-item">
-<%= link_to 'ADD NEW', new_list_path, class:"nav-link active" %>
-</li>
-<li class="nav-item">
-<%= link_to 'SEE DIRECTORY', lists_path , class:"nav-link active" %>
-</li>
-<li class="nav-item">
-<%= link_to 'SEE DIRECTORY BELOW 30',  filtered_index_lists_path, class:"nav-link active" %>
-</li>
-</ul>
+  <% else %>
+  
+    <li class="nav-item">
+        <%= link_to 'LOG IN',  new_user_session_path, class:"nav-link active" %>
+    </li>
+
+    <li class="nav-item">
+        <%= link_to 'SIGN UP', new_user_registration_path, class:"nav-link active" %>
+    </li>
+<% end %>
+
+  
+  
+  </ul>
+
+
+
+
+  
