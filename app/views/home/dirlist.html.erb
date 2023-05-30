@@ -25,8 +25,12 @@
         <%= button_to  "SIGN OUT", destroy_user_session_path, :method => :delete,class:"nav-link active" %>
     </li>
     
-    
-
+    <% if current_user && current_user.admin %>
+     
+    <li class="nav-item">
+        <%= link_to  "SEE USER PROFILE", users_index_path,class:"nav-link active" %>
+    </li>
+    <% end %>
   <% else %>
   
     <li class="nav-item">
