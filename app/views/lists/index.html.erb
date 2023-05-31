@@ -2,49 +2,8 @@
 
 <h1>Contact directory</h1>
 
-<p>TOTAL CONTACTS: <%= @number_count %></p>
-<p>LOWEST AGE NUMBER: <%= @lowest_number %></p>
-<p>OLDEST AGE NUMBER: <%= @maximum_number %></p> 
+<p>TOTAL CONTACTS (from helper): <%= list_count(@lists) %></p>
+<p>LOWEST AGE NUMBER: <%= load_number_lowest(@lists) %></p>
+<p>OLDEST AGE NUMBER: <%= load_number_max(@lists) %></p>
 
-  <table class="table table-light table-striped-columns">
-  <thead>
-    <tr>
-      <th>name</th>
-      <th>number</th>
-      <th>email</th>
-      <th>action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @lists.each do |list| %>
-      <tr>
-        <td><%= list.name %></td>
-        <td><%= list.number %></td>
-        <td><%= list.email %></td>
-        <td>
-        <button type="button" class="btn btn-dark">
-          <%= link_to "Edit", edit_list_path(list), class:"nav-link active" %>
-          </button>
-          <button type="button" class="btn btn-dark">
-          <%= button_to  'destroy', method: :delete, class:"nav-link active" %>
-                     
-          </button>
-
-          </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
- 
-
-
-
-</div>
-<button type="button" class="btn btn-dark">
-<%= link_to "Add New contact", new_list_path, class:"nav-link active" %>
-</button>
-<button type="button" class="btn btn-dark">
-
-  <%= link_to "home page", root_path, class:"nav-link active" %>
-  </button>
+<%= render partial: 'list_table', locals: { lists: @lists } %>

@@ -1,19 +1,17 @@
 class ListsController < ApplicationController
   before_action :set_list, only: %i[ show edit update destroy ]
-  
-  
+
+
 
   # GET /lists or /lists.json
    def index
     load_lists
-    load_number_stats
-  end
+   end
 
   def filtered_index
     load_filtered_lists
-    load_filtered_number_stats
     render :filtered_index
-  end	
+  end
 
   private
 
@@ -25,15 +23,6 @@ class ListsController < ApplicationController
     @lists = List.where("number < ?", 30)
   end
 
-  def load_number_stats
-    @number_count = List.where.not(number: nil).count
-    @lowest_number = List.minimum(:number)
-    @maximum_number = List.maximum(:number)
-  end
-
-  def load_filtered_number_stats
-    @number_count = List.where("number < ?", 30).count
-  end 
 
 
   # GET /lists/1 or /lists/1.json
@@ -48,7 +37,7 @@ class ListsController < ApplicationController
   # GET /lists/1/edit
   def edit
   end
- 
+
   # POST /lists or /lists.json
   def create
     @list = List.new(list_params)
@@ -81,7 +70,7 @@ class ListsController < ApplicationController
 
   # DELETE /lists/1 or /lists/1.json
   def destroy
-    
+
 
     @list = List.find(params[:id])
     @list.destroy
@@ -89,7 +78,7 @@ class ListsController < ApplicationController
       format.json { head :no_content }
 
   end
-    
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -102,11 +91,5 @@ class ListsController < ApplicationController
       params.require(:list).permit(:name, :number, :email)
     end
 
-    
+
   end
-
-
-
-
-
-
