@@ -6,4 +6,9 @@
 <p>LOWEST AGE NUMBER: <%= load_number_lowest(@lists) %></p>
 <p>OLDEST AGE NUMBER: <%= load_number_max(@lists) %></p>
 
+<%= form_tag lists_path, method: :get, class: "search-form" do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search by number..." %>
+  <%= submit_tag "Search" %>
+<% end %>
+
 <%= render partial: 'list_table', locals: { lists: @lists } %>

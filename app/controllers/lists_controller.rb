@@ -4,12 +4,19 @@ class ListsController < ApplicationController
 
   # GET /lists or /lists.json
    def index
-    load_lists
-   end
+    if params[:search]
+      @lists = List.where(number: params[:search])
+    else
+      load_lists
+    end
+  end
 
   def filtered_index
-    load_filtered_lists
-    render :filtered_index
+    if params[:search]
+      @lists = @lists.where("number < 30").where(number: params[:search])
+    else
+      load_filtered_lists
+    end
   end
 
   private
@@ -19,7 +26,7 @@ class ListsController < ApplicationController
   end
 
   def load_filtered_lists
-    @lists = List.where("number < ?", 30)
+    @lists = List.where("number < 30")
   end
 
 
