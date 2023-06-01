@@ -3,6 +3,7 @@ class ListsController < ApplicationController
   before_action :authenticate_user!
   before_action :load_lists, only: [:index]
   before_action :load_filtered_lists, only: [:filtered_index]
+  before_action :load_ordered_lists, only: [:index, :filtered_index]
 
   include ListsHelper
     def index
@@ -17,23 +18,21 @@ class ListsController < ApplicationController
       end
     end
 
-    private
-
+  private
     def load_lists
-      @lists = List.order(number: :asc)
-      @list_count = list_count(@lists)
+      @lists = List.all
     end
 
     def load_filtered_lists
+
       @lists = List.where("number < 30")
     end
 
+    def load_ordered_lists
+      @lists = @lists.order(number: :asc)
+    end
 
-
-
-
-
-  # GET /lists/1 or /lists/1.json
+ # GET /lists/1 or /lists/1.json
   def show
   end
 
