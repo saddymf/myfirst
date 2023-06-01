@@ -1,33 +1,35 @@
 class ListsController < ApplicationController
   before_action :set_list, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
+  before_action :load_lists, only: [:index]
+  before_action :load_filtered_lists, only: [:filtered_index]
 
-  # GET /lists or /lists.json
-   def index
-    if params[:search]
-      @lists = List.where(number: params[:search])
-    else
-      load_lists
+  include ListsHelper
+    def index
+      if params[:search]
+        @lists = List.where("number::text ILIKE ?", "#{params[:search]}%")
+      end
     end
-  end
 
-  def filtered_index
-    if params[:search]
-      @lists = @lists.where("number < 30").where(number: params[:search])
-    else
-      load_filtered_lists
+    def filtered_index
+      if params[:search]
+        @lists = List.where("number < 30").where("number::text ILIKE ?", "#{params[:search]}%")
+      end
     end
-  end
 
-  private
+    private
 
-  def load_lists
-    @lists = List.order(number: :asc)
-  end
+    def load_lists
+      @lists = List.order(number: :asc)
+      @list_count = list_count(@lists)
+    end
 
-  def load_filtered_lists
-    @lists = List.where("number < 30")
-  end
+    def load_filtered_lists
+      @lists = List.where("number < 30")
+    end
+
+
+
 
 
 
@@ -96,6 +98,4 @@ class ListsController < ApplicationController
     def list_params
       params.require(:list).permit(:name, :number, :email)
     end
-
-
   end
